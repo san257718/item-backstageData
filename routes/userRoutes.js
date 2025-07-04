@@ -12,6 +12,6 @@ const router = Router();
 router.get("/", protect, getUsers);
 router.post("/", protect, createUser);
 router.post("/login", login);
-router.post("/logout", protect, logout);
+router.post("/logout", logout);
 
 export default router;
