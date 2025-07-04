@@ -16,9 +16,11 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else [callback(new Error("Not allowed by CORS"))];
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // 🔥 允許發送 credentials (cookies)
+      } else {
+        callback(new Error("Not allowed by CORS")); // 🔥 允許發送 credentials (cookies)
+      }
     },
     credentials: true, // 🔥 允許發送 credentials (cookies)
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
