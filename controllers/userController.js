@@ -38,7 +38,7 @@ export async function createUser(req, res, next) {
 //登入使用者
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
-
+  
   try {
     const user = await User.findOne({ email });
 
@@ -51,8 +51,8 @@ export const login = async (req, res, next) => {
     // // ✅ 設定 httpOnly Cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true, // 開發環境下為 false
-      sameSite: "lax", // 開發環境下為 "none"
+      secure: process.env.NODE_ENV === "development" ? false : true, // 開發環境下為 false
+      sameSite: process.env.NODE_ENV === "development" ? "none" : "lax", // 開發環境下為 "none"
       maxAge: 10000, // 7 天
       path: "/",
     });
@@ -72,8 +72,8 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: true, // 開發環境下為 false
-    sameSite: "lax", // 開發環境下為 "none"
+    secure: process.env.NODE_ENV === "development" ? false : true, // 開發環境下為 false
+    sameSite: process.env.NODE_ENV === "development" ? "none" : "lax", // 開發環境下為 "none"
   });
   res.json({ message: "登出成功" });
 };

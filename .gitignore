@@ -12,7 +12,7 @@ pids
 *.seed
 
 # Env config
-.env
+*.env
 
 # OS
 .DS_Store
