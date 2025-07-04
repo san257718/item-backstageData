@@ -5,10 +5,10 @@ import connectDB from "./config/db.js";
 dotenv.config();
 connectDB();
 
-const PORT = process.env.NODE_ENV === "production" ? process.env.PORT : 5000;
+const PORT =
+  process.env.NODE_ENV === "development" ? 5000 : process.env.NODE_ENV_PORD;
 
 console.log(PORT);
-
 
 // const PROT = process.env.NODE_ENV_DEV;
 
