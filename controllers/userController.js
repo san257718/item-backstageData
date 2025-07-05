@@ -39,8 +39,6 @@ export async function createUser(req, res, next) {
 export const login = async (req, res, next) => {
   const { email, password } = req.body;
 
-  console.log(process.env.NODE_ENV, "111");
-
   try {
     const user = await User.findOne({ email });
 
@@ -50,11 +48,13 @@ export const login = async (req, res, next) => {
 
     const token = generateToken(user.email, user.password);
 
+    console.log(process.env.NODE_ENV);
+
     // // ✅ 設定 httpOnly Cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "development" ? false : true,
+      // sameSite: "none",
       maxAge: 10000, // 7 天
       path: "/",
     });
@@ -74,8 +74,8 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: true,
-    secure: process.env.NODE_ENV === "production" ? true : false,
+    secure: process.env.NODE_ENV === "development" ? false : true,
+    // sameSite: "none",
   });
   res.json({ message: "登出成功" });
 };
