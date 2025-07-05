@@ -54,7 +54,7 @@ export const login = async (req, res, next) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "development" ? false : true,
-      sameSite: process.env.NODE_ENV === "development" ? "none" : "lex",
+      sameSite: "none",
       maxAge: 10000, // 7 天
       path: "/",
     });
@@ -75,7 +75,7 @@ export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "development" ? false : true,
-    sameSite: process.env.NODE_ENV === "development" ? "none" : "lex",
+    sameSite: "none",
   });
   res.json({ message: "登出成功" });
 };
