@@ -8,8 +8,6 @@ connectDB();
 const PORT =
   process.env.NODE_ENV === "development" ? 5000 : process.env.NODE_ENV_PORD;
 
-console.log(PORT);
-
 // const PROT = process.env.NODE_ENV_DEV;
 
 app.listen(PORT, () => {

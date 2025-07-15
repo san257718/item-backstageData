@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(json());
 
 // Routes
-app.use("/api/users", userRoutes);
+app.use("/api/", userRoutes);
 
 // Error Handling
 app.use(errorHandler);
