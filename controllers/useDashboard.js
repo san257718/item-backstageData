@@ -12,7 +12,7 @@ export const getTotalNumberOfProducts = async (req, res, next) => {
 
 export const getOrderPrices = async (req, res, next) => {
   try {
-    const data = await OrderPriceModel.find();
+    const data = await OrderPriceModel.findOne();
     res.json(data);
   } catch (error) {
     next(error);
