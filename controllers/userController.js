@@ -48,8 +48,6 @@ export const login = async (req, res, next) => {
 
     const token = generateToken(user.email, user.password);
 
-    console.log(process.env.NODE_ENV === "development");
-
     // // ✅ 設定 httpOnly Cookie
     res.cookie("token", token, {
       httpOnly: true,
@@ -61,8 +59,8 @@ export const login = async (req, res, next) => {
 
     res.json({
       message: "登入成功",
-      id: user.id,
-      token: token,
+      // id: user.id,
+      // token: token,
     });
   } catch (error) {
     next(error);
@@ -74,8 +72,8 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: false,
+    sameSite: "lax",
   });
   res.json({ message: "登出成功" });
 };
