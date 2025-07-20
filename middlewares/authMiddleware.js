@@ -5,7 +5,10 @@ const protect = async (req, res, next) => {
   const token = req.cookies.token; // ✅ 從 cookie 取出
 
   if (!token) {
-    return res.status(401).json({ message: "未提供認證令牌" });
+    return res.status(401).json({
+      message: "token 失效",
+      data: []
+    });
   }
 
   try {
