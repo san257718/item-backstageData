@@ -51,13 +51,10 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax",
+      secure: true, // 🔥 Production 上一定要加
+      sameSite: "none", // 🔥 一定要設為 none 才能跨網域
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
-      path: "/",
     });
-
-    console.log(process.env.NODE_ENV);
 
     res.json({
       message: "登入成功",
