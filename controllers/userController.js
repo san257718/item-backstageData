@@ -53,8 +53,8 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 示例：生產環境假設跨域
+      secure: true, // 示例：生產環境假設跨域
+      sameSite: 'none', // 示例：生產環境假設跨域
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
       path: "/",
     });
