@@ -4,7 +4,8 @@ import OrderPriceModel from "../models/dashboard/order_price.js";
 export const getTotalNumberOfProducts = async (req, res, next) => {
   try {
     const data = await DashboardModel.find();
-    res.json(data);
+    // res.json(data);
+    res.status(200).json(data);    
   } catch (error) {
     next(error);
   }

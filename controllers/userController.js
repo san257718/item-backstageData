@@ -51,9 +51,11 @@ export const login = async (req, res, next) => {
     // // ✅ 設定 httpOnly Cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 10000, // 7 天
+      // secure: process.env.NODE_ENV === "development" ? false : true,
+      // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // 示例：生產環境假設跨域
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
       path: "/",
     });
 
@@ -72,8 +74,9 @@ export const login = async (req, res, next) => {
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: process.env.NODE_ENV === "development" ? true : false,
+    sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
   });
+
   res.json({ message: "登出成功" });
 };

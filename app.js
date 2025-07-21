@@ -15,7 +15,6 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["set-cookie"], // 允許前端讀取 set-cookie header
-    credentials: true,
   })
 );
 
