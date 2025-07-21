@@ -51,7 +51,7 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: process.env.NODE_ENV === "development",
+      secure: process.env.NODE_ENV === "development" ? false : true, // 生產環境使用 false
 
       // ⚡️ 關鍵修正 2: SameSite 屬性
       // 'None' 允許跨站點發送 Cookie。
