@@ -51,19 +51,13 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: process.env.NODE_ENV === "development" ? false : true, // 生產環境使用 false
-
-      // ⚡️ 關鍵修正 2: SameSite 屬性
-      // 'None' 允許跨站點發送 Cookie。
-      // 但如果 SameSite 是 'None'，則 `secure: true` 是強制要求。
-      // 適用於前端和後端部署在不同域名 (即使是同一個 Vercel 帳號下的不同專案也算不同域名)。
-      sameSite: process.env.NODE_ENV === "development" ? "None" : "Lax", // 生產環境使用 'None'
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: process.env.NODE_ENV !== "development" ? "none" : "lax",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
       path: "/",
     });
 
     console.log(process.env.NODE_ENV);
-    
 
     res.json({
       message: "登入成功",
