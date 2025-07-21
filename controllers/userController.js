@@ -4,12 +4,10 @@ import jwt from "jsonwebtoken";
 
 const generateToken = (email, password) => {
   return jwt.sign(
-    {
-      email,
-    },
+    { email: email, password: password },
     process.env.JWT_SECRET,
     {
-      expiresIn: "24h",
+      expiresIn: "7d", // Token 本身的過期時間
     }
   );
 };
@@ -53,8 +51,13 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: true, // 示例：生產環境假設跨域
-      sameSite: 'none', // 示例：生產環境假設跨域
+      secure: process.env.NODE_ENV === "production",
+
+      // ⚡️ 關鍵修正 2: SameSite 屬性
+      // 'None' 允許跨站點發送 Cookie。
+      // 但如果 SameSite 是 'None'，則 `secure: true` 是強制要求。
+      // 適用於前端和後端部署在不同域名 (即使是同一個 Vercel 帳號下的不同專案也算不同域名)。
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // 生產環境使用 'None'
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
       path: "/",
     });
