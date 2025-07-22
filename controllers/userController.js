@@ -49,12 +49,8 @@ export const login = async (req, res, next) => {
     // // ✅ 設定 httpOnly Cookie
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "development" ? false : true,
-      // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: true, // Vercel 強制 HTTPS
-      sameSite: "none", // 跨站必要設定
-      domain: ".vercel.app", // 關鍵設定！注意開頭的點
-      path: "/",
+      secure: process.env.NODE_ENV === "development" ? false : true,
+      sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     });
 
