@@ -53,6 +53,7 @@ export const login = async (req, res, next) => {
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
       secure: true, // Vercel 強制 HTTPS
       sameSite: "none", // 跨站必要設定
+      domain: ".vercel.app", // 關鍵設定！注意開頭的點
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     });
