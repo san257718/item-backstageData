@@ -51,8 +51,9 @@ export const login = async (req, res, next) => {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "development" ? false : true,
       // sameSite: process.env.NODE_ENV === "development" ? "lax" : "none",
-      secure: true, // 🔥 Production 上一定要加
-      sameSite: "none", // 🔥 一定要設為 none 才能跨網域
+      secure: true, // Vercel 強制 HTTPS
+      sameSite: "none", // 跨站必要設定
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 天
     });
 

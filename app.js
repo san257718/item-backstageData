@@ -6,6 +6,7 @@ import errorHandler from "./middlewares/errorHandler.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
+app.use(cookieParser());
 
 // 🔥 重要：必須先設定 CORS，再設定路由
 app.use(
@@ -19,7 +20,6 @@ app.use(
 );
 
 app.use(morgan("dev"));
-app.use(cookieParser());
 app.use(json());
 
 // Routes
