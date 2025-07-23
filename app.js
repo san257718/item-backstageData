@@ -11,10 +11,7 @@ app.use(cookieParser());
 // 🔥 重要：必須先設定 CORS，再設定路由
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? ["https://your-production-domain.com"]
-        : ["http://localhost:3000"], // 你的前端开发地址
+    origin: ["http://localhost:3000", "https://item-frontend.vercel.app"], // 🔥 允許發送 credentials (cookies)
     credentials: true, // 🔥 允許發送 credentials (cookies)
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -25,7 +22,6 @@ app.use(
 app.use(morgan("dev"));
 app.use(json());
 app.options("*", cors());
-
 // Routes
 app.use("/api/", userRoutes);
 

@@ -1,32 +1,19 @@
 import dotenv from "dotenv";
-import express from "express";
+import app from "./app.js";
 import connectDB from "./config/db.js";
 
-// 初始化 Express 和資料庫
 dotenv.config();
 connectDB();
-const app = express();
 
-// 中間件 (例如解析 JSON 或 CORS)
-app.use(express.json());
+const SERVER_PORT = process.env.PORT || 5000;
 
-// 生產環境強制 HTTPS
-const isProduction = process.env.NODE_ENV === "production";
-if (isProduction) {
-  app.use((req, res, next) => {
-    if (req.headers["x-forwarded-proto"] !== "https") {
-      return res.redirect(`https://${req.headers.host}${req.url}`);
-    }
-    next();
-  });
-}
+// const PROT = process.env.NODE_ENV_DEV;
 
-// 你的其他 API 路由 (必須放在程式碼顯示路由之前!)
-app.get("/api/total_number_of_products", (req, res) => {
-  res.json({ message: "API 正常運作!" });
+app.listen(SERVER_PORT, () => {
+  // 使用修正後的 SERVER_PORT
+  console.log(`✅ Server running on port ${SERVER_PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  // 如果你希望在後端日誌中顯示生產環境的 API URL，可以額外打印：
+  // if (process.env.NODE_ENV === 'production') {
+  //   console.log(`🚀 Production API URL: ${process.env.PROD_API_KEY}`);
+  // }
 });
-
-// 顯示程式碼的路由 (最後才處
-
-// 兼容 Vercel (Serverless) 和本地開發
-export default app;
