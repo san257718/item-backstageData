@@ -21,7 +21,6 @@ app.use(
 
 app.use(morgan("dev"));
 app.use(json());
-app.options("*", cors());
 // Routes
 app.use("/api/", userRoutes);
 
