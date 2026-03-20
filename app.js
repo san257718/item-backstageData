@@ -17,18 +17,21 @@ app.use(cookieParser());
 app.use(
   helmet({
     contentSecurityPolicy: {
+      useDefaults: true, // 建議開啟基礎預設，再手動覆蓋
       directives: {
         "default-src": ["'self'"],
         "connect-src": [
           "'self'", 
           "https://item-backstage.vercel.app", 
           "https://item-frontend.vercel.app",
-          "http://localhost:3000" // 開發環境
+          "http://localhost:3000"
         ],
         "script-src": ["'self'"],
         "style-src": ["'self'", "'unsafe-inline'"],
+        "img-src": ["'self'", "data:", "https:"], // 增加圖片權限避免報錯
       },
     },
+    crossOriginResourcePolicy: { policy: "cross-origin" } // 解決跨域資源讀取問題
   })
 );
 
